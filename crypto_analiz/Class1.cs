@@ -1,13 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace lib
 {
     class Class1
     {
+
+        struct grams
+        {
+            public string name;
+            public int distance;
+        };
+
+        public void find_grams(string text, ref List<grams> finded)
+        {
+            int l = 1;
+            int k = 0, count = 0;
+            string part = new String(text.ToCharArray(), 0, 2);
+            while (l < text.Length - 1)
+            {
+                count = new Regex(part).Matches(text).Count;
+
+                if (count >= 2)
+                    while (new Regex(part + text[l + 1].ToString()).Matches(text).Count >= 2)
+                    {
+                        l++;
+                        part += text[l];
+                        count = new Regex(part).Matches(text).Count;
+                    }
+
+                if (count >= 2 && !finded.Exists(x => x.name == part) && part.Length >= 4)
+                {
+                    grams temp; temp.name = part; temp.distance = text.LastIndexOf(part) - text.IndexOf(part);
+                    finded.Add(temp);
+                }
+
+                {
+                    part = new String(text.ToCharArray(), l, 2);
+                    l++;
+                }
+
+            }
+
+            for (int i = 0; i < finded.Count; i++)
+            {
+                Console.WriteLine(finded[i].name + ":\t" + finded[i].distance);
+            }
+
+            //for (int i = 0; i < text.Length - 1 ; i += 2)
+            //{
+            //    int k = 1;
+            //    string gram = text[i].ToString() + text[i+k].ToString();
+            //    int cols = new Regex(gram).Matches(text).Count;
+
+            //    while (cols >= 2)
+            //    {
+            //        k++;
+            //        if (new Regex(gram + text[i + k].ToString()).Matches(text).Count < 2) break;
+            //        gram += text[i + k].ToString();
+            //        cols = new Regex(gram).Matches(text).Count;
+
+            //    }
+
+            //    if (gram.Length > 4)
+            //    {
+            //        grams temp; temp.name = gram; temp.cols = cols;
+            //        finded.Add(temp);
+            //    }
+
+            //}
+        }
+
         public struct word
         {
             public char symbol;
