@@ -2,19 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using table_viginer;
 
 namespace lib
 {
+
+    public struct grams
+    {
+        public string name;
+        public int distance;
+    };
+
+    public struct word
+    {
+        public char symbol;
+        public int cols;
+    };
+
+    public struct find_word
+    {
+        public string text;
+        public word[] words;
+    };
+
+    
     class Class1
     {
+        const string alphabet = "абвгдежзийклмнопрстуфхцчшщъыьэюя";
+        const char word_key = 'о';
+        private string text;
+        private table_v table;
 
-        struct grams
+        public Class1(string text)
         {
-            public string name;
-            public int distance;
-        };
+            this.text = text.ToLower();
+            table = new table_v(alphabet);
+        }
 
-        public void find_grams(string text, ref List<grams> finded)
+        private void find_grams(string text, ref List<grams> finded)
         {
             int l = 1;
             int k = 0, count = 0;
@@ -44,48 +69,51 @@ namespace lib
 
             }
 
-            for (int i = 0; i < finded.Count; i++)
-            {
-                Console.WriteLine(finded[i].name + ":\t" + finded[i].distance);
-            }
-
-            //for (int i = 0; i < text.Length - 1 ; i += 2)
+            //print
+            //for (int i = 0; i < finded.Count; i++)
             //{
-            //    int k = 1;
-            //    string gram = text[i].ToString() + text[i+k].ToString();
-            //    int cols = new Regex(gram).Matches(text).Count;
-
-            //    while (cols >= 2)
-            //    {
-            //        k++;
-            //        if (new Regex(gram + text[i + k].ToString()).Matches(text).Count < 2) break;
-            //        gram += text[i + k].ToString();
-            //        cols = new Regex(gram).Matches(text).Count;
-
-            //    }
-
-            //    if (gram.Length > 4)
-            //    {
-            //        grams temp; temp.name = gram; temp.cols = cols;
-            //        finded.Add(temp);
-            //    }
-
+            //    Console.WriteLine(finded[i].name + ":\t" + finded[i].distance);
             //}
+
         }
 
-        public struct word
+        private void nod(int number,ref List<int> array)
         {
-            public char symbol;
-            public int cols;
-        };
+            while (number != 1)
+            {
+                int del = 2;
+                while (number % del != 0) del++;
+                number /= del;
+                if(!array.Contains(del)) array.Add(del);
+            }
 
-        public struct find_word
+        }
+
+        private int search_len()
         {
-            public string text;
-            public word[] words;
-        };
 
-        public string text_n(int n, int p, string text)
+            List<grams> finded = new List<grams>();
+            find_grams(text, ref finded);
+
+            List<int> union = new List<int>();
+            nod(finded.First().distance, ref union);
+
+            List<int> current = new List<int>();
+
+            for (int i = 1; i < finded.Count; i++)
+            {
+                nod(finded[i].distance, ref current);
+                union = union.Intersect(current).ToList();
+            }
+
+            int res = 1;
+            foreach (int n in union)
+                res *= n;
+
+            return res;
+        }
+
+        private string text_n(int n, int p, string text)
         {
             string res = String.Empty;
 
@@ -97,8 +125,10 @@ namespace lib
             return res;
         }
 
-        public void search(int n, string text, ref find_word[] array)
+        private void search_word(string text, ref find_word[] array)
         {
+            int n = search_len();
+
             array = new find_word[n];
             char[] words;
             word[] array_words;
@@ -115,21 +145,26 @@ namespace lib
                     array_words[i].cols = array[j].text.Count(x => x == array_words[i].symbol);
                 }
 
-                array_words = array_words.OrderByDescending(x => x.cols).Where(x => x.cols >= array_words.Max(x => x.cols) - 1).ToArray();
+                array[j].words = array_words.OrderByDescending(x => x.cols).Where(x => x.cols >= array_words.Max(x => x.cols) - 1).ToArray();
 
-                array[j].words = array_words;
-
+                for (int i = 0; i < array[j].words.Count(); i++)
+                {
+                    array[j].words[i].symbol = table.decrypt_word(array[j].words[i].symbol, word_key);
+                }
+                
                 //array_words = array_words.Where(x => x.cols >= array_words.Max(x => x.cols) - 1).ToArray();
-
                 //ThenBy(x => x.cols >= array_words.Max(x => x.cols) - 1)
-
             }
+
+
+
         }
 
-        public void decrypt(int n, string text)
+        public void decrypt()
         {
             find_word[] array = null;
-            search(n, text, ref array);
+            search_word(text, ref array);
+
         }
     }
 }
