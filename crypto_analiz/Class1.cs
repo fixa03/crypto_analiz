@@ -44,7 +44,7 @@ namespace lib
             int l = 1;
             int k = 0, count = 0;
             string part = new String(text.ToCharArray(), 0, 2);
-            while (l < text.Length - 1)
+            while (l < text.Length - 2)
             {
                 count = new Regex(part).Matches(text).Count;
 
@@ -165,6 +165,13 @@ namespace lib
             find_word[] array = null;
             search_word(text, ref array);
 
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write(i + ":");
+                for (int j = 0; j < array[i].words.Length; j++)
+                    Console.Write("\t" + array[i].words[j].symbol);
+                Console.WriteLine();
+            }
         }
     }
 }
