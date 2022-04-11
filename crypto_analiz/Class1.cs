@@ -41,22 +41,32 @@ namespace lib
 
         private void find_grams(string text, ref List<grams> finded)
         {
+            char[] symbols = {' ', '.', ',', '!', '?' };
             int l = 1;
             int k = 0, count = 0;
             string part = new String(text.ToCharArray(), 0, 2);
             while (l < text.Length - 2)
             {
+
+                if (Array.Exists(symbols, x => x == text[l]))
+                {
+                    l++;
+                    part = new String(text.ToCharArray(), l, 2);
+
+                    continue;
+                }
+
                 count = new Regex(part).Matches(text).Count;
 
                 if (count >= 2)
-                    while (new Regex(part + text[l + 1].ToString()).Matches(text).Count >= 2)
+                    while (!Array.Exists(symbols, x => x == text[l + 1]) && new Regex(part + text[l + 1].ToString()).Matches(text).Count >= 2)
                     {
                         l++;
                         part += text[l];
                         count = new Regex(part).Matches(text).Count;
                     }
 
-                if (count >= 2 && !finded.Exists(x => x.name == part) && part.Length >= 4)
+                if (count >= 2 && !finded.Exists(x => x.name == part) && part.Length >= 2)
                 {
                     grams temp; temp.name = part; temp.distance = text.LastIndexOf(part) - text.IndexOf(part);
                     finded.Add(temp);
@@ -95,15 +105,24 @@ namespace lib
             List<grams> finded = new List<grams>();
             find_grams(text, ref finded);
 
+            finded = finded.OrderByDescending(x => x.distance).ToList();
+
             List<int> union = new List<int>();
             nod(finded.First().distance, ref union);
 
             List<int> current = new List<int>();
 
+            for (int i = 0; i < union.Count; i++)
+                Console.Write(union[i] + " ");
+            Console.WriteLine();
+
             for (int i = 1; i < finded.Count; i++)
             {
                 nod(finded[i].distance, ref current);
                 union = union.Intersect(current).ToList();
+                for (int j = 0; j < current.Count; j++)
+                    Console.Write(current[j] + " ");
+                Console.WriteLine();
             }
 
             int res = 1;
