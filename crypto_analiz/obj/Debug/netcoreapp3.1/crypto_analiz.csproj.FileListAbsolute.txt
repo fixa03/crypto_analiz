@@ -12,3 +12,17 @@ D:\Документы\Projects\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3
 D:\Документы\Projects\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3.1\crypto_analiz.dll
 D:\Документы\Projects\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3.1\crypto_analiz.pdb
 D:\Документы\Projects\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3.1\crypto_analiz.genruntimeconfig.cache
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\bin\Debug\netcoreapp3.1\crypto_analiz.exe
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\bin\Debug\netcoreapp3.1\crypto_analiz.deps.json
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\bin\Debug\netcoreapp3.1\crypto_analiz.runtimeconfig.json
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\bin\Debug\netcoreapp3.1\crypto_analiz.runtimeconfig.dev.json
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\bin\Debug\netcoreapp3.1\crypto_analiz.dll
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\bin\Debug\netcoreapp3.1\crypto_analiz.pdb
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3.1\crypto_analiz.csproj.AssemblyReference.cache
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3.1\crypto_analiz.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3.1\crypto_analiz.AssemblyInfoInputs.cache
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3.1\crypto_analiz.AssemblyInfo.cs
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3.1\crypto_analiz.csproj.CoreCompileInputs.cache
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3.1\crypto_analiz.dll
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3.1\crypto_analiz.pdb
+C:\Users\asustud\Source\Repos\crypto_analiz\crypto_analiz\obj\Debug\netcoreapp3.1\crypto_analiz.genruntimeconfig.cache

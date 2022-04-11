@@ -69,6 +69,7 @@ namespace lib
                 if (count >= 2 && !finded.Exists(x => x.name == part) && part.Length >= 2)
                 {
                     grams temp; temp.name = part; temp.distance = text.LastIndexOf(part) - text.IndexOf(part);
+                    Console.WriteLine(part + ": " + temp.distance.ToString());
                     finded.Add(temp);
                 }
 
@@ -78,6 +79,9 @@ namespace lib
                 }
 
             }
+
+
+            
 
             //print
             //for (int i = 0; i < finded.Count; i++)
