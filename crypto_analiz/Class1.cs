@@ -36,6 +36,12 @@ namespace lib
         public Class1(string text)
         {
             this.text = text.ToLower();
+
+            char[] symb = text.Distinct().ToArray();
+            foreach (char c in symb)
+                if (alphabet.IndexOf(c) == -1)
+                    this.text = this.text.Replace(c.ToString(), "");
+
             table = new table_v(alphabet);
         }
 
@@ -66,11 +72,11 @@ namespace lib
                         count = new Regex(part).Matches(text).Count;
                     }
 
-                if (count >= 2 && !finded.Exists(x => x.name == part) && part.Length >= 2)
+                if (count >= 2 && !finded.Exists(x => x.name == part) && part.Length >= 3)
                 {
                     grams temp; temp.name = part; temp.distance = text.LastIndexOf(part) - text.IndexOf(part);
-                    Console.WriteLine(part + ": " + temp.distance.ToString());
-                    finded.Add(temp);
+                    if(!finded.Exists(x => x.distance == temp.distance))
+                        finded.Add(temp);
                 }
 
                 {
@@ -93,47 +99,134 @@ namespace lib
 
         private void nod(int number,ref List<int> array)
         {
+            
             while (number != 1)
             {
                 int del = 2;
                 while (number % del != 0) del++;
                 number /= del;
-                if(!array.Contains(del)) array.Add(del);
+                array.Add(del);
             }
 
         }
 
-        private int search_len()
+        public bool pr_number(int number)
+        {
+            int count = 1;
+            for (int i = 2; i <= number; i++)
+            {
+                if (number % i == 0) count++;
+                if (count > 2) return false; 
+            }
+
+            return true;
+        }
+
+        class OptimalLen 
+        {
+            private class divider
+            {
+                public int number;
+                public int cols;
+
+                public divider(int number, int cols)
+                {
+                    this.number = number;
+                    this.cols = cols;
+                }
+
+                public void ChangeCols(int cols)
+                { this.cols = cols; }
+            };
+            private List<divider> array;
+            private const int STOP_NUMBER = 15;
+
+            public OptimalLen() 
+            {
+                array = new List<divider>();
+            }
+
+            public void Add(List<int> array_input)
+            {
+                int[] numbers = array_input.Distinct().ToArray();
+                int[] cols = new int[numbers.Count()]; 
+
+                for (int i = 0; i < numbers.Length; i++)
+                {
+                    cols[i] = array_input.Count(x => x == numbers[i]);
+                    int index = array.FindIndex(x => x.number == numbers[i]);
+                    if (index != -1)
+                    {
+                        array[index].ChangeCols( Convert.ToInt16(Math.Ceiling((double)((array[index].cols + cols[i]) / 2.0))) );
+
+                    }
+                    else
+                    {
+                        if(numbers[i] <= STOP_NUMBER)
+                        array.Add(new divider(numbers[i], cols[i]));
+                    }
+                }
+
+                
+                DeleteDivider(numbers);
+                    
+            }
+
+            private void DeleteDivider(int[] numbers) 
+            {
+
+                for (int i = 0; i < array.Count; i++)
+                    if (numbers.Count(x => x == array[i].number) == 0)
+                        if (array[i].cols == 1)
+                            array.RemoveAt(i);
+                        else
+                            array[i].ChangeCols(array[i].cols - 1);
+            }
+
+            public override string ToString()
+            {
+                string str = String.Empty;
+
+                for (int i = 0; i < array.Count; i++)
+                    str += array[i].number + ": " + array[i].cols + " ";
+
+                return str;
+            }
+
+        }
+
+        private void search_len()
         {
 
             List<grams> finded = new List<grams>();
             find_grams(text, ref finded);
 
-            finded = finded.OrderByDescending(x => x.distance).ToList();
+            finded = finded.OrderBy(x => x.distance).ToList();
+            OptimalLen obj = new OptimalLen();
 
-            List<int> union = new List<int>();
-            nod(finded.First().distance, ref union);
-
-            List<int> current = new List<int>();
-
-            for (int i = 0; i < union.Count; i++)
-                Console.Write(union[i] + " ");
-            Console.WriteLine();
+            List<int> current;
+            const int MAX_VIEW_COUNT = 100;
 
             for (int i = 1; i < finded.Count; i++)
             {
+
+                if (pr_number(finded[i].distance)) continue;
+
+                current = new List<int>();
                 nod(finded[i].distance, ref current);
-                union = union.Intersect(current).ToList();
-                for (int j = 0; j < current.Count; j++)
-                    Console.Write(current[j] + " ");
-                Console.WriteLine();
+                
+                if (i < MAX_VIEW_COUNT)
+                {
+                    Console.Write(finded[i].distance + ": ");
+                    for (int j = 0; j < current.Count; j++)
+                        Console.Write(current[j] + " ");
+                    Console.WriteLine();
+                }
+
+                obj.Add(current);
             }
+            Console.WriteLine("Результат алгоритма: " + obj.ToString());
 
-            int res = 1;
-            foreach (int n in union)
-                res *= n;
-
-            return res;
         }
 
         private string text_n(int n, int p, string text)
@@ -150,7 +243,10 @@ namespace lib
 
         private void search_word(string text, ref find_word[] array)
         {
-            int n = search_len();
+            search_len();
+            Console.Write("Введите предпологаемую длину: "); int n = Convert.ToInt16( Console.ReadLine() );
+
+            
 
             array = new find_word[n];
             char[] words;

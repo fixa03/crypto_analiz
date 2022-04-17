@@ -8,33 +8,24 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\asustud\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\fixa03\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\asustud\\Source\\Repos\\crypto_analiz\\crypto_analiz\\crypto_analiz.csproj",
+      "projectUniqueName": "D:\\Документы\\Projects\\crypto_analiz\\crypto_analiz\\crypto_analiz.csproj",
       "projectName": "crypto_analiz",
-      "projectPath": "C:\\Users\\asustud\\Source\\Repos\\crypto_analiz\\crypto_analiz\\crypto_analiz.csproj",
-      "packagesPath": "C:\\Users\\asustud\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\asustud\\Source\\Repos\\crypto_analiz\\crypto_analiz\\obj\\",
+      "projectPath": "D:\\Документы\\Projects\\crypto_analiz\\crypto_analiz\\crypto_analiz.csproj",
+      "packagesPath": "C:\\Users\\fixa03\\.nuget\\packages\\",
+      "outputPath": "D:\\Документы\\Projects\\crypto_analiz\\crypto_analiz\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\asustud\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\fixa03\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -67,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
       }
     }
   }
